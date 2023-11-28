@@ -3,13 +3,15 @@ import axios from "axios";
 import AppHeader from './components/AppHeader.vue';
 import CardsList from './components/CardsList.vue';
 import {store} from "./store"
+import AppFilter from "./components/AppFilter.vue";
 
 
 export default {    
   components: {
     AppHeader,
-    CardsList,    
-  },
+    CardsList,
+    AppFilter
+},
   data() {
     return {
       store
@@ -35,6 +37,7 @@ export default {
 
 <template>
   <AppHeader/>
+  <AppFilter/>
   <CardsList/>
   
 

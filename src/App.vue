@@ -5,17 +5,15 @@ import CardsList from './components/CardsList.vue';
 import {store} from "./store"
 import AppFilter from "./components/AppFilter.vue";
 
-
 export default {    
   components: {
     AppHeader,
     CardsList,
     AppFilter
-},
+  },
   data() {
     return {
       store
-      
     }
   },
   created() {
@@ -24,27 +22,26 @@ export default {
   methods: {
     getCards() {
       axios
-      .get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0")
-      .then((resp) => {
-        this.store.cardsList = resp.data.data
-      })      
+        .get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0")
+        .then((resp) => {
+          this.store.cardsList = resp.data.data
+        })      
+    },
+    updateCards(cards) {
+      this.store.cardsList = cards;
     }
   },
-
-}
-
+};
 </script>
 
 <template>
-  <AppHeader/>
-  <AppFilter/>
-  <CardsList/>
-  
-
+  <div>
+    <AppHeader />
+    <AppFilter @updateCards="updateCards" />
+    <CardsList />
+  </div>
 </template>
 
 <style lang="scss">
 @use './style/general.scss';
-
-
 </style>

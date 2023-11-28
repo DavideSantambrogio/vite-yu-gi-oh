@@ -1,36 +1,41 @@
 <script>
 import axios from "axios";
 import AppHeader from './components/AppHeader.vue';
-import {store} from './store.js';
+import CardsList from './components/CardsList.vue';
+import {store} from "./store"
 
 
-
-
-export default {
-    data() {
-        return {
-          store,
-        };
-    },
-    created() {
-      this.store.loading = true;
-      axios
-        .get(this.store.apiUrl)
-        .then((resp) => {
-          this.store.cardsList = resp.data;
-          this.store.loading = false;
-        });
-    },
-    components: { 
-        AppHeader, 
-         
+export default {    
+  components: {
+    AppHeader,
+    CardsList,    
+  },
+  data() {
+    return {
+      store
+      
     }
+  },
+  created() {
+    this.getCards()
+  },
+  methods: {
+    getCards() {
+      axios
+      .get("https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0")
+      .then((resp) => {
+        this.store.cardsList = resp.data.data
+      })      
+    }
+  },
+
 }
 
 </script>
 
 <template>
   <AppHeader/>
+  <CardsList/>
   
 
 </template>
